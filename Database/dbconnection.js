@@ -17,4 +17,9 @@ const db={}
 db.Sequelize=Sequelize
 db.sequelize=sequelize
 
+db.books=require("./model/bookModel")(sequelize,DataTypes)
+
+sequelize.sync({alter:false}).then(()=>{
+    console.log("Migrate vyo hai ta")
+})
 module.exports=db
