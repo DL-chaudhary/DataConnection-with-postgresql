@@ -1,15 +1,27 @@
 const express=require("express")
+const { hooks } = require("./Database/dbconnection")
 
 const app=express()
-const db = require("./Database/dbconnection")
+app.use(express.json())
 
-app.get("/",(req,res)=>{
+app.get("/",async (req,res)=>{
+   const datas= await hooks.findAll()
     res.json({
-        message:"this is get responsed"
+        message:"this is get responsed",
+        data:datas
     })
 })
 
-app.post("/books",(req,res)=>{
+app.post("/books",async (req,res)=>{
+    // console.log(req.body)
+    const {bookName,bookAuthor,bookPrice,bookGenre}=req.body
+    await hooks.create({
+        bookName:bookName,
+        bookAuthor:bookAuthor,
+        bookPrice:bookPrice,
+        bookGenre:bookGenre
+    })
+
     res.json({
         message:"this is post method"
     })
