@@ -4,7 +4,7 @@
 // const DataTypes=sequelize.DataTypes
  const {Sequelize,DataTypes}= require("sequelize")
 
-const sequelize= new Sequelize("postgresql://postgres.kvowbisplwefxromqvsk:SAASMERN8123@aws-0-ap-south-1.pooler.supabase.com:6543/postgres?pgbouncer=true")
+const sequelize= new Sequelize("postgresql://postgres.kvowbisplwefxromqvsk:SAASMERN8123@aws-0-ap-south-1.pooler.supabase.com:6543/postgres?pgbouncer=true"); 
 sequelize.authenticate()
 .then(()=>{
     console.log("Authenticated vayo, connected !!")

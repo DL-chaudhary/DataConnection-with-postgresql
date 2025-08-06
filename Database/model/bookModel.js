@@ -14,6 +14,6 @@ const bookModel=(sequelize,DataTypes)=>{
         }
 
     })
-return Book
+return Book;
 }
 module.exports=bookModel

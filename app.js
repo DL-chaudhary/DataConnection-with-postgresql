@@ -4,11 +4,36 @@ const { hooks } = require("./Database/dbconnection")
 const app=express()
 app.use(express.json())
 
-app.get("/",async (req,res)=>{
+app.get("/books",async (req,res)=>{
+    //  const id=req.params.id
+    //  const datass= await hooks.findByPK(id)
    const datas= await hooks.findAll()
     res.json({
         message:"this is get responsed",
         data:datas
+    
+    })
+})
+   app.get("/books/:id",async (req,res)=>{
+    const idd=req.params.id
+    //   console.log(idd)
+     const datass=await hooks.findByPk(idd)
+    //  console.log(datass)
+    res.json({
+      message:"this is single page api",
+      data: datass
+    })
+   })
+
+   app.delete("/books/:id",async (req,res)=>{
+      const id=req.params.id
+         await hooks.destroy({
+         where:{
+             id
+         }
+    })
+    res.json({
+        message:"Deleted sucessfully done"
     })
 })
 
@@ -27,15 +52,19 @@ app.post("/books",async (req,res)=>{
     })
 })
 
-app.delete("/book/:id",(req,res)=>{
-    res.json({
-        message:"Book deleted"
-    })
-})
+
  
-app.patch("/book/:id",(req,res)=>{
+app.patch("/books/:id",async (req,res)=>{
+    const id=req.params.id
+     const {bookName,bookAuthor,bookPrice,bookGenre}=req.body
+    await hooks.update({bookName:bookName,bookAuthor:bookAuthor,bookPrice:bookPrice,bookGenre:bookGenre},{
+        where:{
+            id:id
+        }
+     })
+
     res.json({
-        message:"book is updated"
+        message:"books API is updated"
     })
 })
 
@@ -43,4 +72,3 @@ app.listen(3000,()=>{
     console.log("Server is started")
 })
 
-// postgresql://postgres.kvowbisplwefxromqvsk:SAASMERN8123@aws-0-ap-south-1.pooler.supabase.com:6543/postgres?pgbouncer=true
